@@ -1,5 +1,5 @@
 # CFXS Bare Metal Toolchain
-Bare metal CMake GCC toolchain for ARM Cortex processors
+Bare metal CMake GCC toolchain for ARM Cortex processors  
 
 # Supported Platforms
 - `ARM Cortex-M`
@@ -37,3 +37,7 @@ add_executable(${EXE_NAME} ${sources} ${headers})
 add_compile_options(${EXE_NAME} ${CPU_OPTIONS})
 target_link_libraries(${EXE_NAME} ${CPU_OPTIONS} -o${EXE_NAME}.elf -specs=nosys.specs)
 ```
+
+---
+
+https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm
