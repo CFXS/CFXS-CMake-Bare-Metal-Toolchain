@@ -52,11 +52,10 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -g3   -O3     ${CXX_COMMO
 set(CMAKE_C_LINK_FLAGS   "-specs=nosys.specs -Wl,--gc-sections -nostartfiles")
 set(CMAKE_CXX_LINK_FLAGS "-specs=nosys.specs -Wl,--gc-sections -nostartfiles")
 
+add_compile_definitions("gcc")
 add_compile_definitions("__interrupt=__attribute__((interrupt(\"irq\")))")
 add_compile_definitions("__weak=__attribute__((weak))")
 add_compile_definitions("__used=__attribute__((used))")
-
-
 
 set(OBJCOPY ${TOOLCHAIN_PREFIX}objcopy)
 set(OBJDUMP ${TOOLCHAIN_PREFIX}objdump)
