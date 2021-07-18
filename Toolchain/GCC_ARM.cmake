@@ -24,10 +24,10 @@ set(C_COMMON_FLAGS
 )
 string (REPLACE ";" " " C_COMMON_FLAGS "${C_COMMON_FLAGS}")
 
-set(CMAKE_C_FLAGS_DEBUG          "-DDEBUG            -g -Og    ${C_COMMON_FLAGS}")
-set(CMAKE_C_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -g -Ofast ${C_COMMON_FLAGS}")
-set(CMAKE_C_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -g -Os    ${C_COMMON_FLAGS}") 
-set(CMAKE_C_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -g -O2    ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_DEBUG          "-DDEBUG            -gdwarf -Og     ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -gdwarf -O3     ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os     ${C_COMMON_FLAGS}") 
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og ${C_COMMON_FLAGS}")
 
 set(CXX_COMMON_FLAGS 
     -fno-common                 # place uninitialized variables in .bss
@@ -43,10 +43,10 @@ set(CXX_COMMON_FLAGS
 )
 string (REPLACE ";" " " CXX_COMMON_FLAGS "${CXX_COMMON_FLAGS}")
 
-set(CMAKE_CXX_FLAGS_DEBUG          "-DDEBUG            -g3   -Og     ${CXX_COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -flto -O3     ${CXX_COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -flto -Os     ${CXX_COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -g3   -O3     ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG          "-DDEBUG            -gdwarf -Og     ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -gdwarf -O3     ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os     ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og ${CXX_COMMON_FLAGS}")
 
 #-specs=nano.specs 
 set(CMAKE_C_LINK_FLAGS   "-specs=nosys.specs -Wl,--gc-sections -nostartfiles")
@@ -56,6 +56,7 @@ add_compile_definitions("gcc")
 add_compile_definitions("__interrupt=__attribute__((interrupt(\"irq\")))")
 add_compile_definitions("__weak=__attribute__((weak))")
 add_compile_definitions("__used=__attribute__((used))")
+add_compile_definitions("__noinit=__attribute__((section(\".noinit\")))")
 
 set(OBJCOPY ${TOOLCHAIN_PREFIX}objcopy)
 set(OBJDUMP ${TOOLCHAIN_PREFIX}objdump)
