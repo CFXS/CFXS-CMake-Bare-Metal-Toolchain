@@ -15,6 +15,7 @@ set(CMAKE_CXX_COMPILER_FORCED TRUE)
 
 # optimizations (-O0 -O1 -O2 -O3 -Os -Ofast -Og -flto)
 set(C_COMMON_FLAGS 
+    -Wno-comment
     -fno-common                 # place uninitialized variables in .bss
     -ffunction-sections         # functions in seperate sections
     -fdata-sections             # data in seperate sections
@@ -30,6 +31,7 @@ set(CMAKE_C_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os     ${C_COMMON_
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og ${C_COMMON_FLAGS}")
 
 set(CXX_COMMON_FLAGS 
+    -Wno-comment
     -fno-common                 # place uninitialized variables in .bss
     -ffunction-sections         # functions in seperate sections
     -fdata-sections             # data in seperate sections
