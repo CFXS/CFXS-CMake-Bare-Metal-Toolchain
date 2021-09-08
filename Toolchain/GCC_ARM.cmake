@@ -14,7 +14,7 @@ set(CMAKE_C_COMPILER_FORCED TRUE)
 set(CMAKE_CXX_COMPILER_FORCED TRUE)
 
 # optimizations (-O0 -O1 -O2 -O3 -Os -Ofast -Og -flto)
-set(C_COMMON_FLAGS 
+set(C_COMMON_FLAGS
     -Wno-comment
     -fno-common                 # place uninitialized variables in .bss
     -ffunction-sections         # functions in seperate sections
@@ -59,6 +59,7 @@ add_compile_definitions("__interrupt=__attribute__((interrupt(\"irq\")))")
 add_compile_definitions("__weak=__attribute__((weak))")
 add_compile_definitions("__used=__attribute__((used))")
 add_compile_definitions("__noinit=__attribute__((section(\".noinit\")))")
+add_compile_definitions("__vector_table=__attribute__((section(\".vector_table\"), used))")
 
 set(OBJCOPY ${TOOLCHAIN_PREFIX}objcopy)
 set(OBJDUMP ${TOOLCHAIN_PREFIX}objdump)
