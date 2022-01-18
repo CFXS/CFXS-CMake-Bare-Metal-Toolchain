@@ -61,6 +61,7 @@ add_compile_definitions("__used=__attribute__((used))")
 add_compile_definitions("__noinit=__attribute__((section(\".noinit\")))")
 add_compile_definitions("__vector_table=__attribute__((section(\".vector_table\"), used))")
 add_compile_definitions("__naked=__attribute__((naked))")
+add_compile_definitions("__noreturn=__attribute__((noreturn))")
 
 set(OBJCOPY ${TOOLCHAIN_PREFIX}objcopy)
 set(OBJDUMP ${TOOLCHAIN_PREFIX}objdump)
