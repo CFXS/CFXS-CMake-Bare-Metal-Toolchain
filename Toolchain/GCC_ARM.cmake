@@ -53,8 +53,8 @@ set(CMAKE_CXX_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os     ${CXX_COM
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og ${CXX_COMMON_FLAGS}")
 
 #-specs=nano.specs 
-set(CMAKE_C_LINK_FLAGS   "-specs=nosys.specs -Wl,--gc-sections -nostartfiles")
-set(CMAKE_CXX_LINK_FLAGS "-specs=nosys.specs -Wl,--gc-sections -nostartfiles")
+set(CMAKE_C_LINK_FLAGS   "-specs=nosys.specs -Wl,--gc-sections -ffreestanding -nostartfiles")
+set(CMAKE_CXX_LINK_FLAGS "-specs=nosys.specs -Wl,--gc-sections -ffreestanding -nostartfiles")
 
 add_compile_definitions("gcc")
 add_compile_definitions("__interrupt=__attribute__((interrupt(\"irq\")))")
@@ -64,6 +64,7 @@ add_compile_definitions("__noinit=__attribute__((section(\".noinit\")))")
 add_compile_definitions("__vector_table=__attribute__((section(\".vector_table\"), used))")
 add_compile_definitions("__naked=__attribute__((naked))")
 add_compile_definitions("__noreturn=__attribute__((noreturn))")
+add_compile_definitions("__noinit=__attribute__((section(\".noinit\")))")
 
 set(OBJCOPY ${TOOLCHAIN_PREFIX}objcopy)
 set(OBJDUMP ${TOOLCHAIN_PREFIX}objdump)
