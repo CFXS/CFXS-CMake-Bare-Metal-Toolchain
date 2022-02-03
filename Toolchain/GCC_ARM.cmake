@@ -26,10 +26,10 @@ set(C_COMMON_FLAGS
 )
 string (REPLACE ";" " " C_COMMON_FLAGS "${C_COMMON_FLAGS}")
 
-set(CMAKE_C_FLAGS_DEBUG          "-DDEBUG            -gdwarf -Og     ${C_COMMON_FLAGS}")
-set(CMAKE_C_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -gdwarf -O3     ${C_COMMON_FLAGS}")
-set(CMAKE_C_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os     ${C_COMMON_FLAGS}") 
-set(CMAKE_C_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_DEBUG          "-DDEBUG            -gdwarf -Og       ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -gdwarf -O3       ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os       ${C_COMMON_FLAGS}") 
+set(CMAKE_C_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og   ${C_COMMON_FLAGS}")
 
 set(CXX_COMMON_FLAGS 
     -Werror=return-type
@@ -47,12 +47,11 @@ set(CXX_COMMON_FLAGS
 )
 string (REPLACE ";" " " CXX_COMMON_FLAGS "${CXX_COMMON_FLAGS}")
 
-set(CMAKE_CXX_FLAGS_DEBUG          "-DDEBUG            -gdwarf -Og     ${CXX_COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -gdwarf -O3     ${CXX_COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os     ${CXX_COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG          "-DDEBUG            -gdwarf -Og       ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -gdwarf -O3       ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os       ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og   ${CXX_COMMON_FLAGS}")
 
-#-specs=nano.specs 
 set(CMAKE_C_LINK_FLAGS   "-specs=nosys.specs -Wl,--gc-sections -ffreestanding -nostartfiles")
 set(CMAKE_CXX_LINK_FLAGS "-specs=nosys.specs -Wl,--gc-sections -ffreestanding -nostartfiles")
 
