@@ -17,8 +17,7 @@ return {
             target = "FLASH",
             content = {
                 Define("__TEXT_START__"),
-                Place({ align = 4 }, ".text", ".text*", ".gnu.linkonce.t.*"),
-                Place({ align = 4 }, ".glue_7", ".glue_7t"),
+                Place({ align = 4 }, ".text", ".text*", ".gnu.linkonce.t.*", ".glue_7", ".glue_7t"),
                 Place({ align = 4, nodiscard = true }, ".init", ".fini"),
                 Define("__TEXT_END__"),
             }

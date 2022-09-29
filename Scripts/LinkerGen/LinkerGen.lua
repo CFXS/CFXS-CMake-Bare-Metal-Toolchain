@@ -49,18 +49,22 @@ end
 _G.NO_LOAD = "(NOLOAD)"
 _G.ARM_ATTRIBUTES = ".ARM.attributes 0 : { *(.ARM.attributes) }"
 
+local ALIGN_DEFINES = false
+
 local args = { ... }
 local ROOT = args[1]:gsub("\\", "/")
 local CONFIG_FILE_PATH = args[2]:gsub("\\", "/")
 local EXPORT_FILE_PATH = args[3]:gsub("\\", "/")
 
-print("CFXS LinkerGen")
+print("[CFXS LinkerGen]")
 print(" - Root:   " .. ROOT)
 print(" - Config: " .. CONFIG_FILE_PATH)
 print(" - Export: " .. EXPORT_FILE_PATH)
 
 local Utils = dofile(ROOT .. "/Utils.lua")
 local Defaults = dofile(ROOT .. "/Defaults.lua")
+
+print("Loading config file...")
 local Config = dofile(CONFIG_FILE_PATH)
 
 Utils.Assert(Config.EntryPoint == nil, "Config missing [EntryPoint]")
@@ -75,11 +79,14 @@ Utils.Assert(Config.Sections == nil, "Config missing [Sections]")
 local output = string.format("/* Entry Point */\nENTRY(%s)\n\n", Config.EntryPoint)
 
 -- Insert default sections into config sections
-for i, v in pairs(Defaults.Sections) do
-    if v.type == NO_LOAD or v.type == ARM_ATTRIBUTES then
-        table.insert(Config.Sections, v) -- at end
-    else
-        table.insert(Config.Sections, i, v) -- at start in order
+if Config.NoDefaultSections ~= true then
+    print("Merging default sections...")
+    for i, v in pairs(Defaults.Sections) do
+        if v.type == NO_LOAD or v.type == ARM_ATTRIBUTES then
+            table.insert(Config.Sections, v) -- at end
+        else
+            table.insert(Config.Sections, i, v) -- at start in order
+        end
     end
 end
 
@@ -126,6 +133,7 @@ for i, v in pairs(Config.Memory.Alias) do
         aliasPaddingLength = #i
     end
 end
+print("Generating region defines...")
 for i, v in pairs(Config.Memory.Alias) do
     if aliasRegionCheck[i] == nil then
         aliasRegionCheck[i] = true
@@ -148,6 +156,7 @@ for i, v in pairs(Config.Sections) do
         sectionPaddingLength = #v.name
     end
 end
+print("Generating sections and range defines...")
 for i, v in pairs(Config.Sections) do
     if v.type == ARM_ATTRIBUTES then
         outputSections = outputSections .. "    " .. ARM_ATTRIBUTES .. "\n\n"
@@ -178,7 +187,7 @@ for i, v in pairs(Config.Sections) do
         )
 
         outputSections = outputSections .. sect
-        if not v.name:find("%.") then
+        if not v.name:find("%.") and v.type ~= NO_LOAD and v.type ~= ARM_ATTRIBUTES then
             table.insert(constBeingTable,
                 string.format('PROVIDE(%-' .. (sectionPaddingLength + 16) .. 's = LOADADDR(.%s));',
                     "__CONST_" .. v.name:upper() .. "_START__", v.name))
@@ -195,6 +204,7 @@ end
 outputSections = outputSections:sub(1, #outputSections - 1)
 
 if Config.Discard then
+    print("Generating discard list...")
     local discardOutput = "\n    /DISCARD/ : {\n"
     for i, v in pairs(Config.Discard) do
         if #v > 0 then
@@ -213,6 +223,14 @@ output = output ..
     outputSections ..
     "}\n\n"
 
+if not ALIGN_DEFINES then
+    for i, v in pairs(constBeingTable) do
+        constBeingTable[i] = v:gsub("%s+=", " =")
+    end
+
+    regionDefines = regionDefines:gsub("%s+=", " =")
+end
+
 output = output ..
     "/* Section Range Defines */\n" ..
     table.concat(constBeingTable, "\n") ..
@@ -222,5 +240,6 @@ output = output ..
 output = output .. regionDefines .. "\n\n"
 output = output:gsub("[\n]+$", "\n")
 
-print("\n" .. output .. "\n")
+print("Writing output: " .. EXPORT_FILE_PATH)
 Utils.WriteFile(EXPORT_FILE_PATH, output)
+print("> CFXS LinkerGen done")
