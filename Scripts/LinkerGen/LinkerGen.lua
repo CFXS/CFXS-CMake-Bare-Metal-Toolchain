@@ -66,6 +66,9 @@ local Config = dofile(CONFIG_FILE_PATH)
 Utils.Assert(Config.EntryPoint == nil, "Config missing [EntryPoint]")
 Utils.Assert(Config.Memory == nil, "Config missing [Memory]")
 Utils.Assert(Config.Stack == nil, "Config missing [Stack]")
+Utils.Assert(Config.Stack.location == nil, "Config.Stack.location not defined")
+Utils.Assert(Config.Stack.size == nil, "Config.Stack.size not defined")
+Utils.Assert((Config.Stack.size % 8) ~= 0, "Config.Stack.size not aligned to 8")
 Utils.Assert(Config.Sections == nil, "Config missing [Sections]")
 
 ----------------------------------------------------------------
@@ -188,7 +191,21 @@ for i, v in pairs(Config.Sections) do
         end
     end
 end
+
 outputSections = outputSections:sub(1, #outputSections - 1)
+
+if Config.Discard then
+    local discardOutput = "\n    /DISCARD/ : {\n"
+    for i, v in pairs(Config.Discard) do
+        if #v > 0 then
+            discardOutput = discardOutput .. "        " .. i .. " ( " .. table.concat(v, " ") .. " )\n"
+        else
+            discardOutput = discardOutput .. "        " .. i .. " ( * )\n"
+        end
+    end
+    discardOutput = discardOutput .. "    }\n"
+    outputSections = outputSections .. discardOutput
+end
 
 output = output ..
     "/* Sections */\n" ..
