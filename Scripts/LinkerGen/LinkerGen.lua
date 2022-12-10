@@ -46,6 +46,10 @@ _G.DefineHidden = function(name, value)
         return { string.format('PROVIDE_HIDDEN(%s = .);', name) }
     end
 end
+_G.InsertBefore = function(target, t)
+    if not _G.table_InsertBefore then _G.table_InsertBefore = {} end
+    _G.table_InsertBefore[target] = t
+end
 _G.NO_LOAD = "(NOLOAD)"
 _G.ARM_ATTRIBUTES = ".ARM.attributes 0 : { *(.ARM.attributes) }"
 
@@ -157,6 +161,11 @@ for i, v in pairs(Config.Sections) do
     end
 end
 print("Generating sections and range defines...")
+
+--[[
+    InsertBefore
+]]
+
 for i, v in pairs(Config.Sections) do
     if v.type == ARM_ATTRIBUTES then
         outputSections = outputSections .. "    " .. ARM_ATTRIBUTES .. "\n\n"
@@ -165,6 +174,19 @@ for i, v in pairs(Config.Sections) do
         local target = Config.Memory.Alias[v.target]
         Utils.Assert(location == nil, string.format('Invalid [location] for section "%s" ("%s")', v.name, v.location))
         Utils.Assert(target == nil, string.format('Invalid [target] for section "%s" ("%s")', v.name, v.target))
+
+        local insTarget = _G.table_InsertBefore[v.target] and _G.table_InsertBefore[v.target] or
+            _G.table_InsertBefore[target]
+        if insTarget then
+            local lcopy = {}
+            for a, b in pairs(insTarget) do
+                table.insert(lcopy, b)
+            end
+            for a, b in pairs(v.content) do
+                table.insert(lcopy, b)
+            end
+            v.content = lcopy
+        end
 
         if location == target then
             target = "> " .. target
@@ -239,6 +261,18 @@ output = output ..
 -- region defines at end of linkerscript
 output = output .. regionDefines .. "\n\n"
 output = output:gsub("[\n]+$", "\n")
+
+-- User defines
+if Config.Definitions then
+    local userDefs = {}
+    for i, v in pairs(Config.Definitions) do
+        table.insert(userDefs, string.format("PROVIDE(%s = %s);", v[1], v[2]))
+    end
+    output = output ..
+        "\n/* User Defines */\n" ..
+        table.concat(userDefs, "\n") ..
+        "\n"
+end
 
 print("Writing output: " .. EXPORT_FILE_PATH)
 Utils.WriteFile(EXPORT_FILE_PATH, output)

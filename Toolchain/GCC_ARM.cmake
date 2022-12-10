@@ -65,6 +65,8 @@ add_compile_definitions("__naked=__attribute__((naked))")
 add_compile_definitions("__noreturn=__attribute__((noreturn))")
 add_compile_definitions("__noinit=__attribute__((section(\".noinit\")))")
 add_compile_definitions("__memory_barrier=asm volatile(\"\" ::: \"memory\")")
+add_compile_definitions("__rw=volatile")
+add_compile_definitions("__ro=const volatile")
 
 set(OBJCOPY ${TOOLCHAIN_PREFIX}objcopy)
 set(OBJDUMP ${TOOLCHAIN_PREFIX}objdump)
