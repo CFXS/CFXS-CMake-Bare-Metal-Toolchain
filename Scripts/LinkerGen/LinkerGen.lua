@@ -29,6 +29,9 @@ _G.Place = function(...)
     table.insert(output, temp)
     return output
 end
+_G.Align = function(n)
+    return { ". = ALIGN(" .. n .. ");" }
+end
 _G.Extend = function(size)
     return { ". = . + " .. size .. ";" }
 end
