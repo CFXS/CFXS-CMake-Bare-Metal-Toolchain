@@ -90,7 +90,6 @@ return {
             content = {
                 Define("__DATA_START__"),
                 Place({ align = 4 }, ".data", ".data*"),
-                Place(".ram_func", ".ram_func*"),
                 Define("__DATA_END__"),
                 Define("__NOINIT_START__"),
                 Place({ align = 4 }, ".noinit", ".noinit*"),
