@@ -49,8 +49,8 @@ _G.DefineHidden = function(name, value)
         return { string.format('PROVIDE_HIDDEN(%s = .);', name) }
     end
 end
+_G.table_InsertBefore = {}
 _G.InsertBefore = function(target, t)
-    if not _G.table_InsertBefore then _G.table_InsertBefore = {} end
     _G.table_InsertBefore[target] = t
 end
 _G.NO_LOAD = "(NOLOAD)"
