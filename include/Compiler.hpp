@@ -16,3 +16,9 @@
 #define __mem32(x)   (*(__rw uint32_t*)(x))
 #define __mem64(x)   (*(__rw uint64_t*)(x))
 #define __memT(T, x) (*(__rw T*)(x))
+
+#define __nv_mem8(x)    (*(uint8_t*)(x))
+#define __nv_mem16(x)   (*(uint16_t*)(x))
+#define __nv_mem32(x)   (*(uint32_t*)(x))
+#define __nv_mem64(x)   (*(uint64_t*)(x))
+#define __nv_memT(T, x) (*(T*)(x))
