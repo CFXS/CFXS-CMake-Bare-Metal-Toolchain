@@ -26,7 +26,7 @@ set(C_COMMON_FLAGS
 )
 string (REPLACE ";" " " C_COMMON_FLAGS "${C_COMMON_FLAGS}")
 
-set(CMAKE_C_FLAGS_DEBUG          "-DDEBUG            -gdwarf -Og       ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_DEBUG          "-DDEBUG            -gdwarf -O0       ${C_COMMON_FLAGS}")
 set(CMAKE_C_FLAGS_RELEASE        "-DNDEBUG -DRELEASE -gdwarf -O3       ${C_COMMON_FLAGS}")
 set(CMAKE_C_FLAGS_MINSIZEREL     "-DNDEBUG -DRELEASE -gdwarf -Os       ${C_COMMON_FLAGS}") 
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf -O2 -Og   ${C_COMMON_FLAGS}")
@@ -47,7 +47,7 @@ set(CXX_COMMON_FLAGS
 )
 string (REPLACE ";" " " CXX_COMMON_FLAGS "${CXX_COMMON_FLAGS}")
 
-set(CMAKE_CXX_FLAGS_DEBUG          "-std=c++2a -DDEBUG            -gdwarf -Og       ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG          "-std=c++2a -DDEBUG            -gdwarf -O0       ${CXX_COMMON_FLAGS}")
 set(CMAKE_CXX_FLAGS_RELEASE        "-std=c++2a -DNDEBUG -DRELEASE -gdwarf -O3       ${CXX_COMMON_FLAGS}")
 set(CMAKE_CXX_FLAGS_MINSIZEREL     "-std=c++2a -DNDEBUG -DRELEASE -gdwarf -Os       ${CXX_COMMON_FLAGS}")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-std=c++2a -DNDEBUG -DRELEASE -gdwarf -O2 -Og   ${CXX_COMMON_FLAGS}")
