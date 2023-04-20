@@ -1,6 +1,6 @@
 if(${CFXS_PART} STREQUAL "STM32G473CE")
     message("[CFXS] Selecting part STM32G473CE")
-    set(CFXS_CORE "Cortex-M4")
+    set(CFXS_CORE "Cortex-M4F")
     set(CFXS_PLATFORM "STM32")
     set(CFXS_STARTUP_PLATFORM "STM32G4x3")
     add_compile_definitions("CFXS_PLATFORM_STM32")
