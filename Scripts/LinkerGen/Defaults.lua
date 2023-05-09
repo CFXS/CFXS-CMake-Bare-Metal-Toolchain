@@ -92,6 +92,7 @@ return {
                 Place({ align = 4 }, ".data", ".data*"),
                 Define("__DATA_END__"),
                 Define("__NOINIT_START__"),
+                Place(".ram_vector_table", ".ram_vector_table*"),
                 Place({ align = 4 }, ".noinit", ".noinit*"),
                 Define("__NOINIT_END__"),
             }

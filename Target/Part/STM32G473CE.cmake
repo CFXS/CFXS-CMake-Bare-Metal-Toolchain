@@ -7,12 +7,13 @@ if(${CFXS_PART} STREQUAL "STM32G473CE")
     add_compile_definitions("CFXS_PLATFORM_STRING=\"STM32\"")
     add_compile_definitions("STM32G4")
     add_compile_definitions("STM32G473xx")
+
     # add_compile_definitions("DATA_IN_D2_SRAM")
 
     # ARM CMSIS
-    add_compile_definitions("__CM4_REV=0x0001U")          # Cortex-M4 revision r1p0
-    add_compile_definitions("__MPU_PRESENT=1U")           # CM4 provides an MPU
-    add_compile_definitions("__NVIC_PRIO_BITS=4U")        # CM4 uses 4 Bits for the Priority Levels
-    add_compile_definitions("__Vendor_SysTickConfig=0U")  # Set to 1 if different SysTick Config is used
-    add_compile_definitions("__FPU_PRESENT=1U")           # FPU present
+    add_compile_definitions("__CM4_REV=0x0001U") # Cortex-M4 revision r1p0
+    add_compile_definitions("__MPU_PRESENT=1U") # CM4 provides an MPU
+    add_compile_definitions("__NVIC_PRIO_BITS=4U") # CM4 uses 4 Bits for the Priority Levels
+    add_compile_definitions("__Vendor_SysTickConfig=0U") # Set to 1 if different SysTick Config is used
+    add_compile_definitions("__FPU_PRESENT=1U") # FPU present
 endif()
