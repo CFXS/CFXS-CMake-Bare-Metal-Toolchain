@@ -27,8 +27,7 @@ set(C_COMMON_FLAGS
     -ffreestanding # stdlib bight
     -fno-builtin # assert that compilation targets a freestanding environment-fno-threadsafe-statics     # Do not emit the extra code to use the routines specified in the C++ ABI for thread-safe initialization of local statics
 
-    -fno-short-enums
-
+    # -fno-short-enums
     --sysroot="${SYSROOT}"
     -isystem="${SYSROOT}/include"
 
@@ -37,7 +36,7 @@ set(C_COMMON_FLAGS
 string(REPLACE ";" " " C_COMMON_FLAGS "${C_COMMON_FLAGS}")
 
 set(CMAKE_C_FLAGS_DEBUG "-DDEBUG            -gdwarf${CFXS_COMPILE_DWARF_VERSION} -O0       ${C_COMMON_FLAGS}")
-set(CMAKE_C_FLAGS_RELEASE "-DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -Ofast       ${C_COMMON_FLAGS}")
+set(CMAKE_C_FLAGS_RELEASE "-DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -Ofast -ffast-math      ${C_COMMON_FLAGS}")
 set(CMAKE_C_FLAGS_MINSIZEREL "-DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -Os       ${C_COMMON_FLAGS}")
 set(CMAKE_C_FLAGS_RELWITHDEBINFO "-DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -O2 -Og   ${C_COMMON_FLAGS}")
 
@@ -60,7 +59,7 @@ set(CXX_COMMON_FLAGS
     -Wno-deprecated-builtins
     -Wno-deprecated-volatile
 
-    -fno-short-enums
+    # -fno-short-enums
 
     # -fstrict-volatile-bitfields # This option should be used if accesses to volatile bit-fields (or other structure fields, although the compiler usually honors those types anyway) should use a single access of the width of the field’s type, aligned to a natural alignment if possible
     -fms-extensions # Accept some non-standard constructs used in Microsoft header files. In C++ code, this allows member names in structures to be similar to previous types declarations
@@ -69,7 +68,7 @@ set(CXX_COMMON_FLAGS
 string(REPLACE ";" " " CXX_COMMON_FLAGS "${CXX_COMMON_FLAGS}")
 
 set(CMAKE_CXX_FLAGS_DEBUG "-std=c++2a -DDEBUG            -gdwarf${CFXS_COMPILE_DWARF_VERSION} -O0       ${CXX_COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE "-std=c++2a -DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -Ofast       ${CXX_COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE "-std=c++2a -DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -Ofast -ffast-math      ${CXX_COMMON_FLAGS}")
 set(CMAKE_CXX_FLAGS_MINSIZEREL "-std=c++2a -DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -Os       ${CXX_COMMON_FLAGS}")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-std=c++2a -DNDEBUG -DRELEASE -gdwarf${CFXS_COMPILE_DWARF_VERSION} -O2 -Og   ${CXX_COMMON_FLAGS}")
 
