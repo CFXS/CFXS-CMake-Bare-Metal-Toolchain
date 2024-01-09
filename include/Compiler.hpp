@@ -24,3 +24,5 @@
 #define __nv_mem32(x)   (*(uint32_t*)(x))
 #define __nv_mem64(x)   (*(uint64_t*)(x))
 #define __nv_memT(T, x) (*(T*)(x))
+
+#define __c_func extern "C"
