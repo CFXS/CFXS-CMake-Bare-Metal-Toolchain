@@ -1,7 +1,9 @@
 #pragma once
 #define __interrupt      __attribute__((interrupt("irq")))
 #define __weak           __attribute__((weak))
-#define __used           __attribute__((used))
+#ifndef __used
+    #define __used __attribute__((used))
+#endif
 #define __noinit         __attribute__((section(".noinit")))
 #define __vector_table   __attribute__((section(".vector_table"), used))
 #define __naked          __attribute__((naked))
