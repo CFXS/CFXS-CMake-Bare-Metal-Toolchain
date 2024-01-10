@@ -4,6 +4,9 @@
 #ifndef __used
     #define __used __attribute__((used))
 #endif
+#ifndef __noinline
+    #define __noinline       __attribute__((noinline))
+#endif
 #define __noinit         __attribute__((section(".noinit")))
 #define __vector_table   __attribute__((section(".vector_table"), used))
 #define __naked          __attribute__((naked))
